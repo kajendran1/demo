@@ -9,19 +9,19 @@ pipeline {
 
         stage('Build docker image') {
             steps {  
-                sh 'docker build -t admin/nodeapp:$BUILD_NUMBER .'
+                sh 'docker build -t admins/nodeapp:$BUILD_NUMBER .'
             }
         }
-        stage('login to dockerhub') {
-            steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
+        stage('deploy docker image'){
+      steps {
+        script {
+          withCredentials([usernameColonPassword(credentialsId: 'docker', variable: 'docker')]) {
+    sh 'docker login -u docker -p ${docker}'
+}
+          sh 'docker push admins/nodeapp'
         }
-        stage('push image') {
-            steps{
-                sh 'docker push valaxy/nodeapp:$BUILD_NUMBER'
-            }
-        }
+      }
+    }
 }
 post {
         always {
