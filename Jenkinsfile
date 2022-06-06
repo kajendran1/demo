@@ -6,12 +6,7 @@ pipeline {
             git 'https://github.com/kajendran1/demo.git'
             }
         }
-           stage('Build'){
-          steps{
-            sh 'mvn clean install'
-          }
-       }
-
+          
         stage('Build docker image') {
             steps {  
                 sh 'docker build -t adminss/nodeapp:$BUILD_NUMBER .'
