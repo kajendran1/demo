@@ -9,16 +9,14 @@ pipeline {
 
         stage('Build docker image') {
             steps {  
-                sh 'docker build -t admins/nodeapp:$BUILD_NUMBER .'
+                sh 'docker build -t adminss/nodeapp:$BUILD_NUMBER .'
             }
         }
         stage('deploy docker image'){
       steps {
         script {
-          withCredentials([usernameColonPassword(credentialsId: 'docker', variable: 'docker')]) {
-    sh 'docker login -u docker -p ${docker}'
-}
-          sh 'docker push admins/nodeapp'
+             sh 'docker login -u kajendran1451 -p Kajendran@1'
+          sh 'docker push adminss/nodeapp'
         }
       }
     }
