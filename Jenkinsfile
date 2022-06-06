@@ -1,18 +1,15 @@
 pipeline {
     agent any 
-    environment {
-    DOCKERHUB_CREDENTIALS = credentials('valaxy-dockerhub')
-    }
-    stages { 
-        stage('SCM Checkout') {
+       stages { 
+        stage('Checkout') {
             steps{
-            git 'https://github.com/ravdy/nodejs-demo.git'
+            git 'https://github.com/kajendran1/demo.git'
             }
         }
 
         stage('Build docker image') {
             steps {  
-                sh 'docker build -t valaxy/nodeapp:$BUILD_NUMBER .'
+                sh 'docker build -t admin/nodeapp:$BUILD_NUMBER .'
             }
         }
         stage('login to dockerhub') {
