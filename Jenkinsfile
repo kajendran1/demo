@@ -15,10 +15,9 @@ pipeline {
         stage('deploy docker image'){
       steps {
             withCredentials([string(credentialsId: 'docker_passwd', variable: 'docker_passwd')]) {
-                sh "docker login -u kajendran1451 -p $[docker_passwd]"
-               sh 'docker push adminss/nodeapp'
-        
+                sh "docker login -u kajendran1451 -p ${docker_passwd}"
                         }
+          sh 'docker push adminss/nodeapp'
              
                }
                                       }
