@@ -14,12 +14,14 @@ pipeline {
         }
         stage('deploy docker image'){
       steps {
-        script {
-             sh 'docker login -u kajendran1451 -p Kajendran@1'
-          sh 'docker push adminss/nodeapp'
-        }
-      }
-    }
+            withCredentials([string(credentialsId: 'docker_passwd', variable: 'docker_passwd')]) {
+                sh "docker login -u kajendran1451 -p ${docker_passwd}"
+               sh 'docker push adminss/nodeapp'
+        
+                        }
+             
+               }
+                                      }
 }
 post {
         always {
